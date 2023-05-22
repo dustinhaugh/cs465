@@ -16,12 +16,12 @@ var travelRouter = require('./app_server/routes/travel');
 
 var app = express();
 
-// view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
-app.set('view engine', 'hbs');
 
-// register handlebars partials (https://www.npmjs.com/package/hbs)
+// register handlebars partials (NPM, 2021, p. 1)
 hbs.registerPartials(path.join(__dirname, 'app_server', 'views/partials'));
+
+app.set('view engine', 'hbs');
 
 app.use(logger('dev'));8
 app.use(express.json());
