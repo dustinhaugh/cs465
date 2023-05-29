@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require('./app_server/database/db');
+
 // include reference to handlebars code
 const hbs = require('hbs');
 
