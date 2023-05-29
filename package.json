@@ -9,10 +9,15 @@
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "^4.18.2",
-    "express-handlebars": "^7.0.7",
-    "hbs": "^4.2.0",
+    "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
-    "mongoose": "^7.2.1",
-    "morgan": "~1.9.1"
+    "mongoose": "^5.9.1",
+    "morgan": "~1.9.1",
+    "redline": "^1.0.1",
+    "seedgoose": "^2.0.15"
+  },
+  "devDependencies": {
+    "hbs": "^4.2.0",
+    "seedgoose": "^2.0.2"
   }
 }
