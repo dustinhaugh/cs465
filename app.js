@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-require('./app_server/database/db');
+require('./app_api/database/db');
 
 // include reference to handlebars code
 const hbs = require('hbs');
@@ -13,6 +13,8 @@ var indexRouter = require('./app_server/routes/index');
 var travelRouter = require('./app_server/routes/travel');
 var usersRouter = require('./app_server/routes/users');
 
+
+var apiRouter = require('./app_api/routes/index');
 // DUSTIN HAUGH: I will inster app-server paths below
 
 
@@ -36,8 +38,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/travel', travelRouter);
-// DUSTIN HAUGH: this is where I will put new routers below
 
+app.use('/api', apiRouter);
 
 
 

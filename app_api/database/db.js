@@ -9,7 +9,7 @@ const readLine = require('readline');
 mongoose.set('useUnifiedTopology', true);
 
 const connect = () => {
-    setTimeout(() => mongoose.connect(dbURL, 
+    setTimeout(() => mongoose.connect(dbURI, 
         { useNewUrlParser: true, 
             useCreateIndex: true 
         }), 1000);
@@ -67,4 +67,4 @@ process.on('SIGTERM', () => {
 connect();
 
 // bring in Mongoose schema
-require('./travlr');
+require('./models/travlr');
