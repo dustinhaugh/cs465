@@ -1,19 +1,35 @@
-// Using Node.js `require()`
 const mongoose = require('mongoose');
 
 const host = process.env.DB_HOST || '127.0.0.1'
-const dbURI = `mongodb://127.0.0.1/travlr`;
+const dbURI = 'mongodb://127.0.0.1:27017/travlr';
+
+
 const readLine = require('readline');
 
 // avoid 'current Server Discover and Monitorying engine is depreciated'
 mongoose.set('useUnifiedTopology', true);
 
-const connect = () => {
+/* const connect = async () => {
     setTimeout(() => mongoose.connect(dbURL, 
         { useNewUrlParser: true, 
             useCreateIndex: true 
         }), 1000);
+  } */
+
+const connect = async () => {
+  try {
+    const conn = await mongoose.connect(dbURI, {
+      useNewUrlParser: true,
+    });
+    console.log(`MongoDB Connected: {conn.connection.host}`);
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
   }
+}
+
+
+
 
 mongoose.connection.on('connected', () => {
   console.log('connected');
@@ -67,4 +83,4 @@ process.on('SIGTERM', () => {
 connect();
 
 // bring in Mongoose schema
-require('./travlr');
+require('./models/travlr');
