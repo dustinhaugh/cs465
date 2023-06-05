@@ -23,9 +23,14 @@ var app = express();
 
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 
-// register handlebars partials (NPM, 2021, p. 1)
+
 hbs.registerPartials(path.join(__dirname, 'app_server', 'views/partials'));
+
+
 app.set('view engine', 'hbs');
+
+
+
 
 app.use(logger('dev'));
 app.use(express.json());

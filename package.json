@@ -13,7 +13,9 @@
     "http-errors": "~1.6.3",
     "mongoose": "^5.13.17",
     "morgan": "~1.9.1",
+    "path": "^0.12.7",
     "redline": "^1.0.1",
+    "request": "^2.88.2",
     "seedgoose": "^2.0.15"
   },
   "devDependencies": {
