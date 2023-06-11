@@ -21,6 +21,7 @@
     "seedgoose": "^2.0.15"
   },
   "devDependencies": {
+    "@angular/cli": "^16.0.5",
     "hbs": "^4.2.0",
     "seedgoose": "^2.0.2"
   }
