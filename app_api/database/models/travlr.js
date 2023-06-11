@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// defining of the trip schema (SNHU, 2023, p. 1)
 const tripSchema = new mongoose.Schema({
     code: { type: String, required: true, index: true },
     name: { type: String, required: true, index: true },
