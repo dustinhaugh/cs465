@@ -40,9 +40,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+
+
+
+
 // routes to default view directory
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(passport.initialize());
+
 
 // allow CORS
 app.use('/api', (req, res, next) => {

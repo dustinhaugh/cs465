@@ -50,3 +50,4 @@ const travel = (req, res) => {
 module.exports = {
     travel
 };
+
