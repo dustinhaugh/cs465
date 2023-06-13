@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const model = mongoose.model('trips');
+const model = mongoose.model('trip');
 
 //GET: /trips - lists all the trips
 const tripsList = async (req, res) => {
@@ -24,7 +24,7 @@ const tripsList = async (req, res) => {
 
 //GET /trips/:tripCode - returns a single trip
 
-const tripsFindCode = async (req, res) => {
+const tripsFindByCode = async (req, res) => {
     model
         .find({'code': req.params.tripCode})
         .exec ((err, trip) => {
@@ -71,9 +71,6 @@ const tripsAddTrip = async (req, res) => {
     });
 }
 
-
-//PUT: /trips/:tripCode - updates a trip to the list of trips
-
 const tripsUpdateTrip = async (req, res) => {
     console.log(req.body);
     model
@@ -110,12 +107,9 @@ const tripsUpdateTrip = async (req, res) => {
         });
 }
 
-
-
-
 module.exports = {
     tripsList,
-    tripsFindCode, 
-    tripsAddTrip, 
+    tripsFindByCode,
+    tripsAddTrip,
     tripsUpdateTrip
 };

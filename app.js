@@ -22,9 +22,6 @@ var aboutRouter = require('./app_server/routes/about');
 var contactRouter = require('./app_server/routes/contact');
 var apiRouter = require('./app_api/routes/index');
 
-
-
-
 var app = express();
 
 // view engine setup
@@ -39,10 +36,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-
-
-
 
 // routes to default view directory
 app.use(express.static(path.join(__dirname, 'public')));
