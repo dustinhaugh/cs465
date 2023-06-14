@@ -12,4 +12,4 @@ const tripSchema = new mongoose.Schema({
 });
 
 // mongoose function which compiles the model (Mongoose, 2022, p. 1)
-module.exports = mongoose.model("trips", tripSchema);
+module.exports = mongoose.model("trip", tripSchema);
