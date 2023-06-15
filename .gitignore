@@ -71,3 +71,4 @@ typings/
 
 # keep secrets off my repository
 .env
+.env.test
