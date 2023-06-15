@@ -67,3 +67,7 @@ typings/
 !.vscode/launch.json
 !vscode/extensions.json
 *.code-workspace
+
+
+# keep secrets off my repository
+.env
