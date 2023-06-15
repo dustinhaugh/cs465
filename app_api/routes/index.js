@@ -1,49 +1,41 @@
-const authController = require('../controllers/authentication');
+require('dotenv').config();
+
+const JWT_SECRET = process.env.JWT_SECRET;
 const express = require('express');
 const router = express.Router();
+
+// this is an updated form of jwt because it version 7 or above
 const { expressjwt: jwt } = require("express-jwt");
-
-
-// modified from assignment due to version greater than 7.x
-// https://stackoverflow.com/questions/63661915/typeerror-expressjwt-is-not-a-function
 const auth = jwt({
-    secret: "shhhhhhared-secret",
-    audience: "http://myapi/protected",
-    issuer: "http://issuer",
-    algorithms: ["HS256"],
-  });
+    secret: process.env.JWT_SECRET,
+    userProperty: 'payload',
+    algorithms: ['HS256']
+});
 
-
-
-
+const authController = require('../controllers/authentication');
 const tripsController = require('../controllers/trips');
-
-
 
 router
     .route('/login')
-    .post(authController.login)
-    
-    ;
+    .post(authController.login);
 
 router
     .route('/register')
-    .post(authController.register)
+    .post(authController.register);
     
-    ;
-
 router
     .route('/trips')
     .get(tripsController.tripsList)
-    .post(auth, tripsController.tripsAddTrip)
-    
-    ;
+    .post(auth, tripsController.tripsAddTrip);
 
 router
     .route('/trips/:tripCode')
     .get(tripsController.tripsFindCode)
-    .put(auth, tripsController.tripsUpdateTrip)
-    
-    ;
+    .put(auth, tripsController.tripsUpdateTrip);
 
 module.exports = router;
+
+
+
+
+
