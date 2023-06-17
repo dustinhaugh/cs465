@@ -10,6 +10,7 @@ import { TripCardComponent } from './trip-card/trip-card.component';
 import { TripDataService } from './services/trip-data.service';
 import { AddTripComponent } from './add-trip/add-trip.component';
 import { EditTripComponent } from './edit-trip/edit-trip.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { EditTripComponent } from './edit-trip/edit-trip.component';
     TripCardComponent,
     AddTripComponent,
     EditTripComponent,
+    NavbarComponent,
 
   ],
   imports: [
