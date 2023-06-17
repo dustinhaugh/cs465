@@ -49,12 +49,13 @@ export class AuthenticationService {
     }
   }
 
-  public getCurrentUser(): User {    
-    if (this.isLoggedIn()) {      
-        const token: string = this.getToken();      
-        const { email, name } = 
-        JSON.parse(atob(token.split('.')[1]));      
-        return { email, name } as User;    
-    }  
-} 
-}  
+  public getCurrentUser(): User {
+    if (this.isLoggedIn()) {
+      const token: string = this.getToken();
+      const { email, name } = 
+      JSON.parse(atob(token.split('.')[1]));
+      return {email, name} as User;
+    }
+  }
+
+}
