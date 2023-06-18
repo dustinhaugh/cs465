@@ -3,7 +3,6 @@ const Trip = mongoose.model('trip');
 const User = mongoose.model('user');
 
 
-//GET: 
 const getUser = (req, res, callback) => {
     if (req.payload && req.payload.email) {            
       User
