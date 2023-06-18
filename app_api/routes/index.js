@@ -26,12 +26,12 @@ router
 router
     .route('/trips')
     .get(tripsController.tripsList)
-    .post(auth, tripsController.tripsAddTrip);  // create a single trip
+    .post( tripsController.tripsAddTrip);  // create a single trip
 
 router
     .route('/trips/:tripCode')
     .get(tripsController.tripsFindCode)
-    .put(auth, tripsController.tripsUpdateTrip);  // update a trip
+    .put( tripsController.tripsUpdateTrip);  // update a trip
 
 module.exports = router;
 

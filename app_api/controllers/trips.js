@@ -95,8 +95,8 @@ const tripsAddTrip = async (req, res) => {
                       .json(trip);
                 }
             });
-      }
-    );
+     }
+   );
 }
 
 //POST: /trips/:tripByCode - updates a singlw trip
