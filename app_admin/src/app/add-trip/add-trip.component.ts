@@ -9,6 +9,8 @@ import { AuthenticationService } from '../services/authentication.service';
   templateUrl: './add-trip.component.html',
   styleUrls: ['./add-trip.component.css']
 })
+
+
 export class AddTripComponent implements OnInit {
 
   addForm: FormGroup;
@@ -43,7 +45,7 @@ export class AddTripComponent implements OnInit {
         Authorization: `Bearer ${token}`
       };
 
-      this.tripService.addTrip(this.addForm.value)
+      this.tripService.addTrip(this.addForm.value, headers)
       .then(() => {
         this.router.navigate(['/list-trips']);
       });
