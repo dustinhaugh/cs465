@@ -1,11 +1,11 @@
-require('dotenv').config();
-
-// const JWT_SECRET = process.env.JWT_SECRET;
 const express = require('express');
 const router = express.Router();
 
+const authController = require('../controllers/authentication');
+const tripsController = require('../controllers/trips');
+
 // this is an updated form of jwt because it version 7 or above
-const { expressjwt: jwt } = require("express-jwt");
+const { expressjwt: jwt } = require('express-jwt');
 
 const auth = jwt({
     secret: process.env.JWT_SECRET,
@@ -13,8 +13,7 @@ const auth = jwt({
     algorithms: ['HS256']
 });
 
-const authController = require('../controllers/authentication');
-const tripsController = require('../controllers/trips');
+
 
 router
     .route('/login')
@@ -35,6 +34,7 @@ router
     .put(auth, tripsController.tripsUpdateTrip);  // update a trip
 
 module.exports = router;
+
 
 
 

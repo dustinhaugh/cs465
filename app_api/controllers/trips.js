@@ -1,65 +1,63 @@
-const mongoose = require('mongoose')
-const Trip = mongoose.model('trip')
+const mongoose = require('mongoose');
+const Trip = mongoose.model('trip');
 const User = mongoose.model('user');
 
 
+//GET: 
 const getUser = (req, res, callback) => {
-    if (req.payload && req.payload.email) {
-        User
-            .findOne({ email: req.payload.email })
-            .exec((err, user) => {
-
-                if (!user) {
-                    return res
-                        .status(404)
-                        .json({ "message": "User not found" });
-                } else if (err) {
-                    console.log(err);
-                    return res;
-                }
-                callback(req, res, user.name);
-            });
+    if (req.payload && req.payload.email) {            
+      User
+        .findOne({ email : req.payload.email })         
+        .exec((err, user) => {
+          if (!user) {
+            return res
+              .status(404)
+              .json({"message": "User not found"});
+          } else if (err) {
+            console.log(err);
+            return res
+              .status(404)
+              .json(err);
+           }
+          callback(req, res, user.name);                
+        });
     } else {
-
-        return res
-            .status(404)
-            .json({ "message": "User not found" });
+      return res
+        .status(404)
+        .json({"message": "User not found in this pit of dispair"});
     }
 };
 
-// GET: /trips - gets and lists all trips
+//GET: /trips - lists all the trips
 const tripsList = async (req, res) => {
     Trip
-        .find({})  // no parameter in find query returns all trips
-        .exec((err, trips) => {
-            // if no trips found, return error message
+        .find({}) //empty filter for all
+        .exec((err, trips)=> {
             if (!trips) {
                 return res
                     .status(404)
-                    .json({ "message": "Trip not found" });
-            // else if error occurred in mongoose, return the error
+                    .json({"message": "trip not found"});
             } else if (err) {
                 return res
                     .status(404)
                     .json(err);
-            // else the trips were found, so return OK code and trips
             } else {
                 return res
                     .status(200)
                     .json(trips);
             }
-        })
+        });
 };
 
-// GET: /trips/:tripCode - gets a single trip
+//GET /trips/:tripCode - returns a single trip
 const tripsFindCode = async (req, res) => {
     Trip
-        .find({ 'code': req.params.tripCode })
-        .exec((err, trip) => {
+        .find({'code': req.params.tripCode})
+        .exec ((err, trip) => {
             if (!trip) {
                 return res
                     .status(404)
-                    .json({ "message": "Trip not found" });
+                    .json({'message' : 'trip not found'});
             } else if (err) {
                 return res
                     .status(404)
@@ -67,12 +65,12 @@ const tripsFindCode = async (req, res) => {
             } else {
                 return res
                     .status(200)
-                    .json(trip)
+                    .json(trip);
             }
         });
 };
 
-// POST: creates a single trip
+//POST: /trips - adds a trip to the list of trips
 const tripsAddTrip = async (req, res) => {
     getUser(req, res, 
       (req, res) => {
@@ -102,7 +100,7 @@ const tripsAddTrip = async (req, res) => {
     );
 }
 
-// PUT: changes a single trip
+//POST: /trips/:tripByCode - updates a singlw trip
 const tripsUpdateTrip = async (req, res) => {
     getUser(req, res, 
       (req, res) => {
@@ -118,7 +116,6 @@ const tripsUpdateTrip = async (req, res) => {
                 description: req.body.description
             }, {new: true})
             .then (trip => {
-                
                 if (!trip) {
                     return res
                       .status(404)
@@ -127,8 +124,6 @@ const tripsUpdateTrip = async (req, res) => {
                       });
                 }
                 res.send(trip);
-                //window.alert(JSON.stringify(trip, null, 3));
-            
             }).catch(err => {
                 if (err.kind === 'ObjectId') {
                     return res
@@ -143,10 +138,7 @@ const tripsUpdateTrip = async (req, res) => {
             });
       }
     );
-    
 };
-
-
 
 module.exports = {
     tripsList,

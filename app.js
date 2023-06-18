@@ -1,13 +1,15 @@
-require('dotenv').config
+require('dotenv').config();
+require("dotenv/config");
 
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const hbs = require('hbs');
-const passport = require('passport')
+const passport = require('passport');
+
+
 require('./app_api/database/db');
 require('./app_api/config/passport');
 
@@ -22,6 +24,7 @@ var mealsRouter = require('./app_server/routes/meals');
 var newsRouter = require('./app_server/routes/news');
 var aboutRouter = require('./app_server/routes/about');
 var contactRouter = require('./app_server/routes/contact');
+
 var apiRouter = require('./app_api/routes/index');
 
 var app = express();
@@ -38,17 +41,21 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-// routes to default view directory
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
 
 // allow CORS, this defines headers?
 app.use('/api', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); 
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header(
+    'Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.header(
+    'Access-Control-Allow-Headers', 
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  ); 
+  res.header(
+    'Access-Control-Allow-Methods', 
+    'GET, POST, PUT, DELETE');
   next();
 });
 
@@ -77,6 +84,8 @@ app.use(function(err, req, res, next) {
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
 
 // error handler
 app.use(function(err, req, res, next) {
