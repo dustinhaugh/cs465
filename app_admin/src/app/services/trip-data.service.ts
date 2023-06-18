@@ -1,16 +1,17 @@
-import { Injectable , Inject} from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
+
 import { Trip } from '../models/trip';
 import { User } from '../models/user';
 import { AuthResponse } from '../models/authresponse';
 import { BROWSER_STORAGE } from '../storage';
-import { AuthenticationService } from './authentication.service';
 
 
 @Injectable()
 export class TripDataService {
 
-  constructor(private http: Http,
+  constructor (
+    private http: Http,
     @Inject(BROWSER_STORAGE) private storage: Storage
     ) { }
 
@@ -19,10 +20,14 @@ export class TripDataService {
   private tripUrl = `${this.apiBaseUrl}trips/`;
 
 
-  public addTrip(formData: Trip): Promise<Trip> {
+  public addTrip(formData: Trip, headers: any): Promise<Trip[]> {
     console.log('Inside TripDataService#addTrip');
+    const requestOptions = {
+      headers: headers
+    };
+
     return this.http
-      .post(this.tripUrl, formData)
+      .post(`${this.tripUrl}`, formData, requestOptions)
       .toPromise()
       .then(response => response.json() as Trip[])
       .catch(this.handleError);
@@ -52,6 +57,10 @@ export class TripDataService {
       headers: headers
     };
 
+
+    //window.alert(JSON.stringify(headers, null, 3));
+
+
     return this.http
       .put(this.tripUrl + formData.code, formData, requestOptions)
       .toPromise()
@@ -60,25 +69,26 @@ export class TripDataService {
   }
   
 
+
   private handleError(error: any): Promise<any> {
     console.error('Something has gone wrong', error);
     return Promise.reject(error.message || error);
   }
 
   public login(user: User): Promise<AuthResponse> {
-    return this.makeAuthApiCall("login", user);
+    return this.makeAuthApiCall('login', user);
   }
 
   public register(user: User): Promise<AuthResponse> {
-    return this.makeAuthApiCall("register", user);
+    return this.makeAuthApiCall('register', user);
   }
 
-  private makeAuthApiCall(urlPath: string, user: User): Promise<AuthResponse> {
+  private makeAuthApiCall(urlPath: string, user: User) : Promise<AuthResponse> {
     const url: string = `${this.apiBaseUrl}/${urlPath}`;
     return this.http
       .post(url, user)
       .toPromise()
-      .then((response) => response.json() as AuthResponse)
+      .then(response => response.json() as AuthResponse)
       .catch(this.handleError);
   }
 }

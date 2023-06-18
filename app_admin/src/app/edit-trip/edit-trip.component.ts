@@ -59,10 +59,9 @@ export class EditTripComponent implements OnInit {
     if (this.editForm.valid) {
       
       const token = this.authenticationService.getToken();
-
       // create authorization header with bearer token attribute (Savani, 2023, p. 1)
       const headers = {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}` 
       };
 
       // call edit trip from the trip service object passing the values of edit form and the authorization bearer token (Savani, 2023, p. 1);(SNHU, 2023, p. 1)

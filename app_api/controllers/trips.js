@@ -8,23 +8,22 @@ const getUser = (req, res, callback) => {
         User
             .findOne({ email: req.payload.email })
             .exec((err, user) => {
+
                 if (!user) {
                     return res
                         .status(404)
                         .json({ "message": "User not found" });
                 } else if (err) {
                     console.log(err);
-                    return res
-                        .status(404)
-                        .json(err);
+                    return res;
                 }
-                callback(req,res,user.name);
+                callback(req, res, user.name);
             });
-        } else {
-            return res
-                .status(404)
-                .json({ "message": "User not found" });
-        
+    } else {
+
+        return res
+            .status(404)
+            .json({ "message": "User not found" });
     }
 };
 
@@ -119,6 +118,7 @@ const tripsUpdateTrip = async (req, res) => {
                 description: req.body.description
             }, {new: true})
             .then (trip => {
+                
                 if (!trip) {
                     return res
                       .status(404)
@@ -127,6 +127,8 @@ const tripsUpdateTrip = async (req, res) => {
                       });
                 }
                 res.send(trip);
+                //window.alert(JSON.stringify(trip, null, 3));
+            
             }).catch(err => {
                 if (err.kind === 'ObjectId') {
                     return res
@@ -141,6 +143,7 @@ const tripsUpdateTrip = async (req, res) => {
             });
       }
     );
+    
 };
 
 

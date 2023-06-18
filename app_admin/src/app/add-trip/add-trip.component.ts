@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { TripDataService } from '../services/trip-data.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-add-trip',
@@ -16,7 +17,8 @@ export class AddTripComponent implements OnInit {
   constructor (
     private formBuilder: FormBuilder,
     private router: Router,
-    private tripService: TripDataService
+    private tripService: TripDataService,
+    private authenticationService: AuthenticationService
   ) { }
 
   ngOnInit() {
@@ -35,16 +37,19 @@ export class AddTripComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if(this.addForm.valid) {
-      this.tripService.addTrip(this.addForm.value) 
-        .then( data => {
-          console.log(data);
-          this.router.navigate(['']);
-        });
-    }
-  } 
+    if (this.addForm.valid) {
+      const token = this.authenticationService.getToken();
+      const headers = {
+        Authorization: `Bearer ${token}`
+      };
 
-// get the form short name to access the form fields 
+      this.tripService.addTrip(this.addForm.value, headers)
+      .then(() => {
+        this.router.navigate(['/list-trips']);
+      });
+    }
+  }
+  // get the form short name to access the form fields (SNHU, 2023, p. 1)
   get f() { return this.addForm.controls; }
 }
 
