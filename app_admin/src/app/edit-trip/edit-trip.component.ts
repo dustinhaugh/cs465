@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router'
 import { TripDataService } from '../services/trip-data.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-edit-trip',
@@ -16,7 +17,8 @@ export class EditTripComponent implements OnInit {
   constructor( 
     private formBuilder: FormBuilder, 
     private router: Router, 
-    private tripService: TripDataService
+    private tripService: TripDataService,
+    private authenticationService: AuthenticationService
   ) { }
   
   ngOnInit() {
@@ -57,6 +59,12 @@ export class EditTripComponent implements OnInit {
     this.submitted = true;
 
     if (this.editForm.valid) {
+      const token = this.authenticationService.getToken();
+      const headers = {
+        Authorization: `Bearer ${token}`
+      };
+
+
       this.tripService.updateTrip(this.editForm.value)
         .then((data: any) => {
           console.log(data);
@@ -69,3 +77,5 @@ export class EditTripComponent implements OnInit {
   get f() { return this.editForm.controls; }
 
 }
+
+
