@@ -16,6 +16,8 @@ import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
+
+
   declarations: [
     AppComponent,
     TripListingComponent,
@@ -27,6 +29,8 @@ import { LoginComponent } from './login/login.component';
     LoginComponent
 
   ],
+
+
   imports: [
     BrowserModule,
     HttpModule,
@@ -34,9 +38,17 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule, 
     FormsModule
   ],
+
+
+
   providers: [
     TripDataService
   ],
+
+
+
   bootstrap: [AppComponent]
+
+  
 })
 export class AppModule { }

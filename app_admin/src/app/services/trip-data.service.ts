@@ -1,10 +1,11 @@
 import { Injectable , Inject} from '@angular/core';
 import { Http } from '@angular/http';
-
-import { AuthResponse } from '../models/authresponse';
-import { BROWSER_STORAGE } from '../storage';
 import { Trip } from '../models/trip';
 import { User } from '../models/user';
+import { AuthResponse } from '../models/authresponse';
+import { BROWSER_STORAGE } from '../storage';
+import { AuthenticationService } from './authentication.service';
+
 
 @Injectable()
 export class TripDataService {
@@ -45,11 +46,14 @@ export class TripDataService {
       .catch(this.handleError);
   }
 
-  public updateTrip (formData: Trip): Promise<Trip> {
+  public updateTrip(formData: Trip, headers: any): Promise<Trip> {
     console.log('Inside TripDataService#updateTrip');
-    console.log(formData);
+    const requestOptions = {
+      headers: headers
+    };
+
     return this.http
-      .put(this.tripUrl + formData.code, formData)
+      .put(this.tripUrl + formData.code, formData, requestOptions)
       .toPromise()
       .then(response => response.json() as Trip[])
       .catch(this.handleError);

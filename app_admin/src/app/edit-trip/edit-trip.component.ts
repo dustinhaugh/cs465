@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { TripDataService } from '../services/trip-data.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-edit-trip',
@@ -16,7 +17,9 @@ export class EditTripComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private tripService: TripDataService
+    private tripService: TripDataService,
+    private authenticationService: AuthenticationService
+
   ) { }
 
   ngOnInit() {
@@ -53,15 +56,21 @@ export class EditTripComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if(this.editForm.valid) {
-      this.tripService.updateTrip(this.editForm.value) 
-        .then( data => {
-          console.log(data);
-          this.router.navigate(['']);
-        });
-      }
-  }
+    if (this.editForm.valid) {
+      
+      const token = this.authenticationService.getToken();
 
-  // get the form short name to access the form fields
-  get f() { return this.editForm.controls; }
+      // create authorization header with bearer token attribute (Savani, 2023, p. 1)
+      const headers = {
+        Authorization: `Bearer ${token}`
+      };
+
+      // call edit trip from the trip service object passing the values of edit form and the authorization bearer token (Savani, 2023, p. 1);(SNHU, 2023, p. 1)
+      this.tripService.updateTrip(this.editForm.value, headers)
+      .then(() => {
+        this.router.navigate(['/list-trips']);
+      });
+      
+    }
+  }
 }
