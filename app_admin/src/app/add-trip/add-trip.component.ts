@@ -45,7 +45,7 @@ export class AddTripComponent implements OnInit {
         Authorization: `Bearer ${token}`
       };
 
-      this.tripService.addTrip(this.addForm.value, headers)
+      this.tripService.addTrip(this.addForm.value)
       .then(() => {
         this.router.navigate(['/list-trips']);
       });

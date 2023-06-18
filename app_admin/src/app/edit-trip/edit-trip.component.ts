@@ -65,7 +65,7 @@ export class EditTripComponent implements OnInit {
       };
 
       // call edit trip from the trip service object passing the values of edit form and the authorization bearer token (Savani, 2023, p. 1);(SNHU, 2023, p. 1)
-      this.tripService.updateTrip(this.editForm.value, headers)
+      this.tripService.updateTrip(this.editForm.value)
       .then(() => {
         this.router.navigate(['/list-trips']);
       });
